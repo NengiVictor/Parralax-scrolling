@@ -1,10 +1,22 @@
-const parallaxBgs = document.querySelectorAll('.parallax-bg');
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".content-card");
+  const wrapper = document.querySelector(".parallax-wrapper");
 
-window.addEventListener('scroll', () => {
-  let scrollPosition = window.scrollY;
-  
-  parallaxBgs.forEach(bg => {
-    // Move background at half the speed of the scroll
-    bg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+  const observerOptions = {
+    root: wrapper, 
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); 
+      }
+    });
+  }, observerOptions);
+
+  cards.forEach(card => {
+    observer.observe(card);
   });
 });

@@ -19,4 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
   cards.forEach(card => {
     observer.observe(card);
   });
+
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+  wrapper.addEventListener("scroll", () => {
+    if (wrapper.scrollTop > 300) {
+      scrollTopBtn.classList.add("show");
+    } else {
+      scrollTopBtn.classList.remove("show");
+    }
+  });
+
+  scrollTopBtn.addEventListener("click", () => {
+    wrapper.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
 });
